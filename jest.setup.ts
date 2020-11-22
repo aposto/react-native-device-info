@@ -23,15 +23,16 @@ const stringKeys = [
   'appName',
   'buildNumber',
   'appVersion',
+  'deviceType',
 ];
 
 for (const key of stringKeys) {
-  RNDeviceInfo[key] = 'unknown';
+  RNDeviceInfo[key] = 'unknown-test';
 }
 
 const booleanKeys = ['isTablet'];
 for (const key of booleanKeys) {
-  RNDeviceInfo[key] = false;
+  RNDeviceInfo[key] = true;
 }
 
 RNDeviceInfo.syncUniqueId = stringFnAsync();
@@ -63,7 +64,6 @@ const stringFnNames = [
   'getCodename',
   'getIncremental',
   'getCarrier',
-  'deviceType',
   'getInstallReferrer',
 ];
 for (const name of stringFnNames) {
@@ -133,7 +133,7 @@ jest.mock('react-native', () => {
 
   type OS = typeof RN.Platform.OS;
   jest.spyOn(RN.Platform, 'select').mockImplementation((obj: OS) => {
-    return obj.android || obj.ios || obj.default;
+    return obj.android || obj.ios || obj.windows || obj.web || obj.default;
   });
 
   return RN;
